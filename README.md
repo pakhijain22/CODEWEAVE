@@ -1,39 +1,19 @@
-# CODEWEAVE
-CodeWeave is a real-time collaborative code editor that enables multiple users to write, edit, and share code simultaneously. It features live synchronization, syntax highlighting, and seamless collaboration to improve teamwork and coding productivity.
-Features
-Real-time collaborative coding
-Multi-user code editing
-Live synchronization of changes
-Syntax highlighting for better readability
-Responsive and user-friendly interface
-Seamless team collaboration
-Problem Statement
+# CodeWeave
 
-Developers often face challenges while collaborating remotely on code. Traditional methods involve sharing files repeatedly, leading to delays and version conflicts. CodeWeave addresses this problem by enabling multiple users to work on the same codebase in real time.
+CodeWeave is a collaborative code editor inspired by VS Code and Google Docs, designed to allow multiple users to work on the same codebase in real time. The vision includes features such as live collaboration, conflict resolution, code sharing, and team communication.
 
-Tech Stack
-Frontend
-HTML
-CSS
-JavaScript
-Backend
-Node.js
-Express.js
-Real-Time Communication
-Socket.IO
-How It Works
-Users join a shared coding session.
-Multiple participants can edit code simultaneously.
-Changes are synchronized instantly across all connected users.
-Users can collaborate without manually sharing updated files.
-Future Enhancements
-Integrated chat system
-Code execution environment
-AI-powered code suggestions
-Version history tracking
-Voice and video collaboration
-Project Goals
-Improve team collaboration
-Reduce code-sharing delays
-Enable efficient remote coding sessions
-Provide a smooth real-time editing experience
+Currently, this project contains only the frontend implementation built using HTML, CSS, and JavaScript. Real-time collaboration features using technologies like Socket.IO and backend integration are planned for future development.
+
+### Tech Stack
+
+* HTML
+* CSS
+* JavaScript
+
+### Future Features
+
+* Real-time collaborative editing
+* Multi-user workspaces
+* Conflict resolution system
+* Code sharing and communication tools
+* Backend and database integration
