@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CodeWeave — Collaborative Editor</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+  <div class="titlebar">
+    <div class="titlebar-left">
+      <div class="dot-controls">
+        <div class="dot dot-red"></div>
+        <div class="dot dot-yellow"></div>
+        <div class="dot dot-green"></div>
+      </div>
+      <div class="brand">
+        <div class="brand-icon">&lt;/&gt;</div>
+        <div>
+          <div class="brand-name">CodeWeave</div>
+          <div class="brand-sub">A Real-Time Collaborative Code Editor</div>
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div class="collab-pill">
+        <div class="collab-dot"></div>
+        <span style="color:var(--accent-green);font-size:12px;">4 live</span>
+      </div>
+      <div class="avatars">
+        <div class="avatar av1">AK</div>
+        <div class="avatar av2">SR</div>
+        <div class="avatar av3">MJ</div>
+        <div class="avatar av4">PL</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <button class="tb-btn active">&#8594; File</button>
+    <div class="tb-sep"></div>
+    <button class="tb-btn">&#8635; Undo</button>
+    <button class="tb-btn">&#8634; Redo</button>
+    <div class="tb-sep"></div>
+    <button class="tb-btn">&#128203; Copy</button>
+    <button class="tb-btn">&#9986; Cut</button>
+    <div class="tb-sep"></div>
+    <select class="lang-select" id="langSelect" onchange="changeLang(this.value)">
+      <option value="js">JavaScript</option>
+      <option value="py">Python</option>
+      <option value="ts">TypeScript</option>
+    </select>
+    <div class="tb-sep"></div>
+    <div class="ot-badge">OT Sync: ON</div>
+    <div class="tb-right">
+      <button class="tb-btn" onclick="triggerConflict()">&#9889; Simulate Conflict</button>
+      <button class="run-btn" onclick="runCode()">&#9654; Run</button>
+    </div>
+  </div>
+
+  <div class="main-area">
+    <div class="sidebar">
+      <div class="sidebar-section">
+        <div class="sidebar-title">Explorer</div>
+        <div class="file-item active">
+          <span class="file-icon">&#128196;</span>
+          <span>main.js</span>
+          <div class="user-cursor-badge" style="background:#1f6feb;">AK</div>
+        </div>
+        <div class="file-item">
+          <span class="file-icon">&#128196;</span>
+          <span>utils.js</span>
+          <div class="user-cursor-badge" style="background:#8957e5;">SR</div>
+        </div>
+        <div class="file-item">
+          <span class="file-icon">&#128196;</span>
+          <span>collab.js</span>
+        </div>
+        <div class="file-item">
+          <span class="file-icon">&#128196;</span>
+          <span>index.html</span>
+        </div>
+        <div class="file-item">
+          <span class="file-icon">&#128196;</span>
+          <span>styles.css</span>
+        </div>
+      </div>
+      <div class="collab-users" style="margin-top:auto;">
+        <div class="sidebar-title">Collaborators</div>
+        <div class="user-row">
+          <div style="width:20px;height:20px;border-radius:50%;background:#1f6feb;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:white;flex-shrink:0;">AK</div>
+          <div>
+            <div class="u-name">Aryan K.</div>
+            <div class="u-typing" id="u1status">editing line 12...</div>
+          </div>
+          <div class="u-dot" style="background:#3fb950;margin-left:auto;flex-shrink:0;"></div>
+        </div>
+        <div class="user-row">
+          <div style="width:20px;height:20px;border-radius:50%;background:#8957e5;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:white;flex-shrink:0;">SR</div>
+          <div>
+            <div class="u-name">Sara R.</div>
+            <div class="u-typing" id="u2status">viewing utils.js</div>
+          </div>
+          <div class="u-dot" style="background:#3fb950;margin-left:auto;flex-shrink:0;"></div>
+        </div>
+        <div class="user-row">
+          <div style="width:20px;height:20px;border-radius:50%;background:#3fb950;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:white;flex-shrink:0;">MJ</div>
+          <div>
+            <div class="u-name">Max J.</div>
+            <div class="u-typing" id="u3status">idle</div>
+          </div>
+          <div class="u-dot" style="background:#e3b341;margin-left:auto;flex-shrink:0;"></div>
+        </div>
+        <div class="user-row">
+          <div style="width:20px;height:20px;border-radius:50%;background:#ffa657;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:white;flex-shrink:0;">PL</div>
+          <div>
+            <div class="u-name">Priya L.</div>
+            <div class="u-typing" id="u4status">typing...</div>
+          </div>
+          <div class="u-dot" style="background:#3fb950;margin-left:auto;flex-shrink:0;"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="editor-container">
+      <div class="tabs">
+        <div class="tab active">
+          <div class="tab-dot" style="background:#ffa657;"></div>
+          <span>main.js</span>
+          <span class="tab-close">&#183;</span>
+        </div>
+        <div class="tab">
+          <div class="tab-dot" style="background:#8b949e;"></div>
+          <span>utils.js</span>
+        </div>
+        <div class="tab">
+          <div class="tab-dot" style="background:#8b949e;"></div>
+          <span>collab.js</span>
+        </div>
+        <div class="add-tab">+</div>
+      </div>
+
+      <div class="editor-wrap">
+        <div class="line-numbers" id="lineNums"></div>
+        <div class="code-area" id="codeArea"></div>
+      </div>
+
+      <div class="output-panel">
+        <div class="output-tabs">
+          <div class="o-tab active">Terminal</div>
+          <div class="o-tab">OT Log</div>
+          <div class="o-tab">Conflicts</div>
+        </div>
+        <div class="output-body" id="outputBody">
+          <div class="out-line info">[CodeWeave] Session started. 4 collaborators connected.</div>
+          <div class="out-line success">[OT] Operational Transform engine initialized.</div>
+          <div class="out-line success">[Sync] Real-time sync active on WebSocket ws://codeweave.io/session/7fx9</div>
+          <div class="out-line">[Collab] Aryan K. joined. Sara R. joined. Max J. joined. Priya L. joined.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <div class="status-item">&#9679; main.js</div>
+    <div class="status-item" id="langStatus">JavaScript</div>
+    <div class="status-item" id="conflictStatus"></div>
+    <div class="status-right">
+      <span id="cursorPos">Ln 12, Col 28</span>
+      <span>UTF-8</span>
+      <span>LF</span>
+      <span>4 spaces</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    Made with <span class="heart">&#10084;</span> by <strong>Team Chai and Code</strong>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
